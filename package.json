@@ -1,0 +1,14 @@
+{
+  "name": "timechecker-web",
+  "version": "0.1.1104",
+  "description": "simple time checker",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "author": "InGee Kim",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}

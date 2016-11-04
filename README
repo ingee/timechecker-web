@@ -1,0 +1,5 @@
+TimeChecker-Web
+===
+
+This Web executes <predefined script>,
+  and check time until <predefined API> is called.
