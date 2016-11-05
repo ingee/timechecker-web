@@ -12,13 +12,17 @@ click EXEC first, then DONE.<br/>
 TimeChecker-Web will show duration time.
 </p>
 
-<p>
-<button type="button" id="execBtn">exec</button>
-<button type="button" id="doneBtn">done</button>
-</p>
+<ol>
+<li>
+  <button type="button" id="execBtn">exec</button>
+  <input type="text" id="cmdText" value="echo hello~" autofocus>
+</li>
+<li><button type="button" id="doneBtn">done</button></li>
+<li><button type="button" id="clearBtn">clear console</button></li>
+</ol>
 
 <p>
-<div id="console"></div>
+<div id="consoleDiv"></div>
 </p>
 
 <script src="jquery-3.1.1.min.js"></script>

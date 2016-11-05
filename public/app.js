@@ -1,29 +1,35 @@
 $(function() {
 
   var putConsole = function(msg) {
-    $('#console').text(msg);
+    $('#consoleDiv').prepend(msg + '<br/>');
   }
     
-  var callApi = function(url, msg) {
+  var callApi = function(url, data) {
     $.ajax({
       url: url,
       type: 'GET',
+      data: data,
       dataType: 'json',
     }).done(function(res) {
-      putConsole(msg + JSON.stringify(res));
+      putConsole(JSON.stringify(res));
     }).fail(function() {
       putConsole('something wrong!');
     });
   };
 
   $('#execBtn').on('click', function() {
-    callApi('exec', 'execBtn clicked!=> ');
+    callApi('exec', { cmd: $('#cmdText').val() });
     console.log('execBtn clicked');
   });
 
   $('#doneBtn').on('click', function() {
-    callApi('done', 'doneBtn clicked!=> ');
+    callApi('done');
     console.log('doneBtn clicked');
+  });
+
+  $('#clearBtn').on('click', function() {
+    $('#consoleDiv').text('');
+    console.log('clearBtn clicked');
   });
 
   console.log("ready!");

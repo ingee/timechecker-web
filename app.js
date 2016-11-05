@@ -6,8 +6,8 @@ var app = express();
 //
 
 var bgnTime;
-var sendResponse = function(res, time, result) {
-  var resObj = { time: time, result: result };
+var sendResponse = function(res, time, api, data) {
+  var resObj = { time: time, api: api, ret: data };
   res.end(JSON.stringify(resObj));
   console.log(resObj);
 }
@@ -28,8 +28,8 @@ var execCmd = function(cmd) {
 
 app.get('/exec', function(req, res) {
   bgnTime = process.hrtime();
-  sendResponse(res, bgnTime, 'OK');
-  execCmd('ls -al');
+  execCmd(req.query.cmd);
+  sendResponse(res, bgnTime, '/exec');
 });
 
 app.get('/done', function(req, res) {
@@ -40,7 +40,7 @@ app.get('/done', function(req, res) {
   } else {
     var diff = process.hrtime(bgnTime);
     var endTime = process.hrtime();
-    sendResponse(res, endTime, JSON.stringify(diff));
+    sendResponse(res, endTime, '/done', { diff: diff });
   }
 });
 
