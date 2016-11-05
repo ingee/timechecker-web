@@ -1,5 +1,7 @@
 TimeChecker-Web
-===
+===============
 
-This Web executes <predefined script>,
-  and check time until <predefined API> is called.
+This application executes <command> on server when "/exec" API is called.
+And check time until "/done" API is called.
+
+The default web port is 8001.
