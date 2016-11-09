@@ -6,6 +6,7 @@ var app = express();
 //
 
 var bgnTime;
+var retCount;
 var sendResponse = function(res, time, api, data) {
   var resObj = { time: time, api: api, ret: data };
   res.end(JSON.stringify(resObj));
@@ -31,6 +32,7 @@ var execCmd = function(cmd, callback) {
 
 app.get('/exec', function(req, res) {
   bgnTime = process.hrtime();
+  retCount = 0;
   execCmd(req.query.cmd, function(result) {
     sendResponse(res, bgnTime, '/exec', result);
   })
@@ -42,9 +44,10 @@ app.get('/done', function(req, res) {
     var endTime = process.hrtime();
     sendResponse(res, endTime, 'call EXEC first');
   } else {
+    retCount++;
     var diff = process.hrtime(bgnTime);
     var endTime = process.hrtime();
-    sendResponse(res, endTime, '/done', { diff: diff });
+    sendResponse(res, endTime, '/done', { count: retCount, diff: diff });
   }
 });
 
