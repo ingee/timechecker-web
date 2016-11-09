@@ -16,10 +16,12 @@ var exec = require('child_process').exec;
 var execCmd = function(cmd, callback) {
   exec(cmd, function(error, stdout, stderr) {
     console.log(stdout);
-    if (error !== null) {
+    var result = { stdout: stdout };
+    if (error) {
       console.log('error= ' + error);
+      result.error = error.toString();
     }
-    callback(stdout);
+    callback(result);
   });
 }
 
@@ -29,8 +31,8 @@ var execCmd = function(cmd, callback) {
 
 app.get('/exec', function(req, res) {
   bgnTime = process.hrtime();
-  execCmd(req.query.cmd, function(stdout) {
-    sendResponse(res, bgnTime, '/exec', { stdout: stdout});
+  execCmd(req.query.cmd, function(result) {
+    sendResponse(res, bgnTime, '/exec', result);
   })
 });
 
