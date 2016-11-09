@@ -17,17 +17,24 @@ $(function() {
     });
   };
 
-  $('#execBtn').on('click', function() {
+  $('#cmdText').keypress(function(e) {
+    if (e.keyCode === 13) {
+      callApi('exec', { cmd: $('#cmdText').val() });
+      console.log('ENTER pressed');
+    }
+  });
+      
+  $('#execBtn').click(function() {
     callApi('exec', { cmd: $('#cmdText').val() });
     console.log('execBtn clicked');
   });
 
-  $('#doneBtn').on('click', function() {
+  $('#doneBtn').click(function() {
     callApi('done');
     console.log('doneBtn clicked');
   });
 
-  $('#clearBtn').on('click', function() {
+  $('#clearBtn').click(function() {
     $('#consoleDiv').text('');
     console.log('clearBtn clicked');
   });
