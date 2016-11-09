@@ -13,12 +13,13 @@ var sendResponse = function(res, time, api, data) {
 }
 
 var exec = require('child_process').exec;
-var execCmd = function(cmd) {
+var execCmd = function(cmd, callback) {
   exec(cmd, function(error, stdout, stderr) {
     console.log(stdout);
     if (error !== null) {
       console.log('error= ' + error);
     }
+    callback(stdout);
   });
 }
 
@@ -28,8 +29,9 @@ var execCmd = function(cmd) {
 
 app.get('/exec', function(req, res) {
   bgnTime = process.hrtime();
-  execCmd(req.query.cmd);
-  sendResponse(res, bgnTime, '/exec');
+  execCmd(req.query.cmd, function(stdout) {
+    sendResponse(res, bgnTime, '/exec', { stdout: stdout});
+  })
 });
 
 app.get('/done', function(req, res) {
