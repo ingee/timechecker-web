@@ -1,7 +1,9 @@
 $(function() {
 
-  var putConsole = function(msg) {
-    $('#consoleDiv').prepend(msg + '<br/>');
+  var putConsole = function(data) {
+    $('#consoleDiv')
+      .prepend('<span class="' + data.api+'">' 
+                + JSON.stringify(data) + '</span><br/>');
   }
     
   var callApi = function(url, data) {
@@ -10,22 +12,24 @@ $(function() {
       type: 'GET',
       data: data,
       dataType: 'json',
-    }).done(function(res) {
-      putConsole(JSON.stringify(res));
-    }).fail(function() {
-      putConsole('something wrong!');
     });
   };
 
-  $('#cmdText').keypress(function(e) {
+  var socket = io();
+  socket.on('api-fired', function(data) {
+    putConsole(data);
+    console.log('api-fired', data);
+  });
+
+  $('#cmdLine').keypress(function(e) {
     if (e.keyCode === 13) {
-      callApi('exec', { cmd: $('#cmdText').val() });
+      callApi('exec', { cmd: $('#cmdLine').val() });
       console.log('ENTER pressed');
     }
   });
       
   $('#execBtn').click(function() {
-    callApi('exec', { cmd: $('#cmdText').val() });
+    callApi('exec', { cmd: $('#cmdLine').val() });
     console.log('execBtn clicked');
   });
 
@@ -39,6 +43,6 @@ $(function() {
     console.log('clearBtn clicked');
   });
 
-  console.log("ready!");
+  console.log('ready!');
 
 });

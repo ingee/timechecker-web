@@ -4,13 +4,16 @@
 <head>
 <title>TimeCheck-Web</title>
 <style>
-#cmdText {
+#cmdLine {
   width: 80%;
 }
 #consoleDiv { 
   font-family: 'Courier New';  
   font-size: 9pt; 
   background-color: lightblue;
+}
+#consoleDiv span.exec {
+  background-color: yellow;
 }
 </style>
 </head>
@@ -25,7 +28,7 @@ TimeChecker-Web will show duration time.
 <ol>
 <li>
 <button type="button" id="execBtn" accesskey="1">exec</button>
-<input type="text" id="cmdText" value="pwd" autofocus>
+<input type="text" id="cmdLine" value="pwd" autofocus>
 </li>
 <li><button type="button" id="doneBtn" accesskey="2">done</button></li>
 <li><button type="button" id="clearBtn" accesskey="3">clear console</button>
@@ -37,6 +40,7 @@ TimeChecker-Web will show duration time.
 </p>
 
 <script src="jquery-3.1.1.min.js"></script>
+<script src="socket.io.min.js"></script>
 <script src="app.js"></script>
 </body>
 
